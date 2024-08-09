@@ -1,7 +1,8 @@
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import React, { useEffect, useState } from 'react';
 import TableDataLayout from './page/main/tableDataLayout';
+import './vendor/css/main.css';
 
 
 
