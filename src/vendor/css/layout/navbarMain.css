@@ -1,0 +1,14 @@
+@media only screen and (min-width: 992px) {
+    .search-navbar-main {
+      
+      position:absolute;
+      right:0px;
+    }
+    .center-navbar-main{
+        padding-left: 40% !important;
+    }
+  }
+  .center-navbar-main{
+   
+   width:100%;
+  }
