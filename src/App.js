@@ -42,12 +42,13 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="layout">
       <NavbarMain />
-      <SidebarMain />
-      <h1>Data from API:</h1>
-      <TableDataLayout data={data} />
-      
+        <div className="main">
+          <SidebarMain />
+          
+          <TableDataLayout data={data} />
+        </div>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
