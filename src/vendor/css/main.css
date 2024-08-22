@@ -1,4 +1,20 @@
 /* main.css */
+@font-face {
+  font-family: 'Noto Sans Mono';
+  src: url('/src/fonts/NotoSansMono/NotoSansMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Mono';
+  src: url('/src/fonts/NotoSansMono/NotoSansMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+body {
+  font-family: 'Noto Sans Mono', monospace;
+}
+
 .div-table{
     width: 100%;
     
@@ -11,7 +27,8 @@
 body, html, #root, .layout {
     height: 100%;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Noto Sans Mono', monospace;
+    /* font-family: Arial, sans-serif; */
   }
   
   .navbar {
