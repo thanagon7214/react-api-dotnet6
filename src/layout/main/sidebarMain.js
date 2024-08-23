@@ -1,6 +1,6 @@
 import React, { Component,useState  } from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu, } from 'react-pro-sidebar';
-import { Alarm, House, ChatSquareDots,ChevronLeft,ChevronRight } from 'react-bootstrap-icons';
+import { ChevronLeft,ChevronRight } from 'react-bootstrap-icons';
 
 
 const SidebarMain = () =>{
