@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 // import './App.css';
 import React, { useEffect, useState } from 'react';
-import TableDataLayout from './page/main/tableDataLayout';
+// import TableDataLayout from './page/main/tableDataLayout';
+import ContentMain from './layout/main/contentMain';
 import NavbarMain from './layout/main/navbarMain';
 import SidebarMain from './layout/main/sidebarMain';
 import './vendor/css/main.css';
@@ -47,7 +48,8 @@ function App() {
         <div className="main">
           <SidebarMain />
           
-          <TableDataLayout data={data} />
+          {/* <TableDataLayout data={data} /> */}
+          <ContentMain data={data} />
         </div>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>

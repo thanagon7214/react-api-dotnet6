@@ -37,19 +37,9 @@ const TableDataLayout  = (props) => {
    
     
         return (
-            <div className="content">
-              
-                
-                <Container >
-                <Row>
-                    <Col md={12}>
-                    <Card>
-                        <Card.Header><h1>Data from API:</h1></Card.Header>
-                        <Card.Body>
-                            <div className="div-table">
-                                <Stack direction="horizontal" gap={3} className="justify-content-center">
-                                    <div className="table-1">
-                                        <Table striped bordered hover variant="dark" {...getTableProps()}>
+            <>
+        
+                                        <Table striped bordered hover  {...getTableProps()}>
                                             <thead>
                                                 {headerGroups.map(headerGroup => (
                                                 <tr {...headerGroup.getHeaderGroupProps()}>
@@ -95,17 +85,8 @@ const TableDataLayout  = (props) => {
                                             Next
                                             </button>
                                         </div>
-                                    </div>
-                                </Stack>
-                            </div>
-                        </Card.Body>
-                    </Card>
-                    </Col>
-                 </Row>
-                </Container>
-                
-              
-            </div>
+                     
+            </>
         );
     
 }

@@ -1,4 +1,7 @@
 /* main.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @font-face {
   font-family: 'Noto Sans Mono';
   src: url('/src/fonts/NotoSansMono/NotoSansMono-Regular.ttf') format('truetype');
@@ -11,8 +14,19 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: 'Noto Sans Thai';
+  src: url('/src/fonts/NotoSansMono/NotoSansThai-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai';
+  src: url('/src/fonts/NotoSansMono/NotoSansThai-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
 body {
-  font-family: 'Noto Sans Mono', monospace;
+  /* font-family: 'Noto Sans Mono', monospace; */
 }
 
 .div-table{
@@ -28,7 +42,11 @@ body, html, #root, .layout {
     height: 100%;
     margin: 0;
     font-family: 'Noto Sans Mono', monospace;
+   
     /* font-family: Arial, sans-serif; */
+  }
+  body:lang(th), html:lang(th), #root:lang(th), .layout:lang(th),.text-th-cus:lang(th) {
+    font-family: 'Noto Sans Thai', sans-serif;
   }
   
   .navbar {
@@ -69,4 +87,73 @@ body, html, #root, .layout {
     flex-grow: 1;
     background-color: #fff;
     padding: 20px;
+  }
+
+  /* sidebar */
+  .sidebar {
+    width: 250px;
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar.collapsed {
+    width: 80px;
+  }
+  .css-1wvake5.ps-collapsed {
+    width: 0px !important;
+    min-width: 0px !important;
+  }
+  
+  .main {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .content {
+    flex-grow: 1;
+    background-color: #fff;
+    padding: 20px;
+  }
+  
+  /* Media Queries เพื่อจัดการ Responsive Layout */
+  @media (max-width: 768px) {
+    .sidebar {
+      position: absolute;
+      left: -250px;
+      top: 0;
+      height: 100%;
+      transition: left 0.3s ease;
+    }
+  
+    .sidebar.active {
+      left: 0;
+    }
+  
+    .toggle-btn {
+      display: block;
+    }
+  }
+  
+  /* ปุ่ม Toggle สำหรับหน้าจอเล็ก */
+  .toggle-btn {
+  
+    /* background-color: white;
+    color: white;
+    border: none; */
+    background-color: white;
+    border: 2px solid #ddd; /* ขอบสีเทาอ่อน */
+    border-radius: 8px; /* ขอบโค้งมน */
+    padding: 5px 10px;
+    font-size: 16px;
+    color: #333; /* สีข้อความ */
+    cursor: pointer;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6); /* เงานูน */
+    transition: box-shadow 0.3s ease;
+   
+  }
+  .toggle-btn:hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(255, 255, 255, 0.5); /* เงานูนเมื่อ hover */
+  }
+  
+  .toggle-btn:active {
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.5); /* เงานูนเมื่อกด */
   }

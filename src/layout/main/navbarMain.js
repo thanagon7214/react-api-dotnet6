@@ -5,7 +5,7 @@ import { Navbar, Nav, NavDropdown, Form, FormControl, Button,Stack } from 'react
 const NavbarMain  = (props) => { 
     return (
     <Navbar bg="light" expand="lg" style={{padding:'10px'}}>
-        <Navbar.Brand href="#home">ระบบจัดการ</Navbar.Brand>
+        <Navbar.Brand href="#home" className="text-th-cus"  lang="th">ระบบจัดการ</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
            
