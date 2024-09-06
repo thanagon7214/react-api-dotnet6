@@ -1,6 +1,7 @@
 import React, { Component,useState  } from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu, } from 'react-pro-sidebar';
 import { ChevronLeft,ChevronRight } from 'react-bootstrap-icons';
+import {  useNavigate  } from "react-router-dom";
 
 
 const SidebarMain = () =>{
@@ -15,15 +16,18 @@ const SidebarMain = () =>{
     };
   
     window.addEventListener('resize', handleResize);
+    const navigateLinkSidebar = useNavigate();
     return (
         <>
             <Sidebar collapsed={collapsed} className={isMobile && collapsed ? 'active' : ''}>
         
                 <Menu iconShape="square">
-                <SubMenu label="dashboard">
+                {/* <SubMenu label="dashboard">
                     <MenuItem> Pie charts </MenuItem>
                     <MenuItem> Line charts </MenuItem>
-                </SubMenu>
+                </SubMenu> */}
+                 <MenuItem onClick={() => navigateLinkSidebar("/")}> dashboard</MenuItem>
+                  
                 <MenuItem> Documentation </MenuItem>
                 <MenuItem> Calendar </MenuItem>
                 </Menu>

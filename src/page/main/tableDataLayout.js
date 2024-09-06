@@ -9,8 +9,28 @@ import { useTable,useSortBy,usePagination, Navbar, Nav, NavDropdown, Form, FormC
 const TableDataLayout  = (props) => {
     const columns = React.useMemo(
         () => [
-          { Header: 'Id', accessor: 'Id' },
-          { Header: 'Name', accessor: 'Name' },
+          { Header: 'Id', accessor: 'id' }, // .net
+          { Header: 'Name', accessor: 'name' },
+          { Header: 'Price', accessor: 'price' },
+          {
+             Header: 'Type product',
+              accessor: 'type_product',
+              Cell: ({ cell: { value } }) => {
+                // ตรวจสอบค่าที่ได้รับและแปลงเป็นข้อความ
+                if (value === 1) {
+                  return 'เสื้อ';
+                } else if (value === 2) {
+                  return 'รองเท้า';
+                } else if (value === 3) {
+                  return 'เครื่องประดับ';
+                } else {
+                  return 'ไม่ระบุประเภท'; // กรณีค่าที่ไม่ตรงกับเงื่อนไข
+                }
+              }
+
+             },
+        //   { Header: 'Id', accessor: 'Id' }, //node js
+        //   { Header: 'Name', accessor: 'Name' },
         ],
         []
     );
