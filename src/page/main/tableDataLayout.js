@@ -4,9 +4,68 @@ import { Stack,Table,Button,Container, Row, Col, Card } from 'react-bootstrap';
 
 import { useTable,useSortBy,usePagination, Navbar, Nav, NavDropdown, Form, FormControl    } from 'react-table';
 
+import { PencilFill,TrashFill} from 'react-bootstrap-icons';
 
+import { useNavigate} from "react-router-dom";
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 const TableDataLayout  = (props) => {
+    const navigateLinkTableDataLayout = useNavigate();
+    const handleEdit = (rowData) => {
+        // ฟังก์ชันที่ถูกเรียกเมื่อคลิกที่ปุ่มแก้ไข
+        console.log('แก้ไขข้อมูล: ', rowData);
+        // คุณสามารถเปลี่ยนข้อมูลหรือแสดงฟอร์มการแก้ไขได้ที่นี่
+        navigateLinkTableDataLayout('/FormEditProducts',{ state: { productData: rowData } });
+    };
+
+    const handleDelete =  (id) => {
+     
+        // ฟังก์ชันที่ถูกเรียกเมื่อคลิกที่ปุ่มลบ
+        MySwal.fire({
+          title: 'คุณต้องการลบข้อมูลนี้ใช่หรือไม่',
+        
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "ใช่,ลบข้อมูล",
+          cancelButtonText: "ไม่"
+        }).then(async(result) => {
+          if (result.isConfirmed) {
+            try {
+              const response = await fetch(`https://localhost:7136/api/products/${id}`, {
+                method: 'DELETE',
+              });
+          
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              if (props.onProductDeleted) {
+                props.onProductDeleted(id);
+              }
+              MySwal.fire({
+                title: 'เพิ่มข้อมูลสำเร็จ',
+                // text: 'This is a SweetAlert2 popup in React!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigateLinkTableDataLayout('/'); // ทำการ redirect เมื่อกด OK
+                }
+              });
+            } catch (error) {
+              console.error('Error deleting product:', error);
+            }
+
+         
+          }
+        });
+        // คุณสามารถส่งคำขอลบไปที่ API หรือจัดการข้อมูลใน local ได้
+    };
     const columns = React.useMemo(
         () => [
           { Header: 'Id', accessor: 'id' }, // .net
@@ -17,18 +76,38 @@ const TableDataLayout  = (props) => {
               accessor: 'type_product',
               Cell: ({ cell: { value } }) => {
                 // ตรวจสอบค่าที่ได้รับและแปลงเป็นข้อความ
-                if (value === 1) {
+                if (value == 1) {
                   return 'เสื้อ';
-                } else if (value === 2) {
+                } else if (value == 2) {
                   return 'รองเท้า';
-                } else if (value === 3) {
+                } else if (value == 3) {
                   return 'เครื่องประดับ';
                 } else {
                   return 'ไม่ระบุประเภท'; // กรณีค่าที่ไม่ตรงกับเงื่อนไข
                 }
               }
 
-             },
+          },
+          {
+            Header: 'Actions', // ชื่อคอลัมน์ใหม่
+            Cell: ({ row }) => (
+              <div style={{ display: 'flex', justifyContent:'space-evenly' }}>
+                <button 
+                  onClick={() => handleEdit(row.original)} 
+                  style={{  }}
+                >
+                    <PencilFill/>
+                </button>
+                <button 
+                  onClick={() => handleDelete(row.original.id)} 
+                  style={{   }}
+                >
+                
+                  <TrashFill/>
+                </button>
+              </div>
+            )
+          }
         //   { Header: 'Id', accessor: 'Id' }, //node js
         //   { Header: 'Name', accessor: 'Name' },
         ],

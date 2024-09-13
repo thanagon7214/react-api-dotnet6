@@ -1,0 +1,511 @@
+{
+    "id_form_1": "775",
+    "area_nikhom_name": "นอกพื้นที่นิคมอุตสาหกรรม",
+    "plant_name": "บริษัท เอ็กโก โคเจนเนอเรชั่น จำกัด",
+    "project_name": "โครงการโรงไฟฟ้าเอ็กโก โคเจน",
+    "type_report": "EIA (สผ.)",
+    "last_report_agree": "EIA ส่วนขยาย ครั้งที่ 1",
+    "meeting_num": "15/2564",
+    "date_agree": "22 มี.ค. 2564",
+    "status_chimney": "เปิดดำเนินการ",
+    "get_of_discharge_rate": "80/20",
+    "measure_max_actual_emission": "ไม่มี",
+    "way_get_information_max_actual_emission": "วิธีที่ 1 ตรวจวัดค่า Max. Actual Emission ที่ปล่องระบาย",
+    "reason_way_get_information_max_actual_emission": "",
+    "production_capacity_in_eia": "117 MW",
+    "production_capacity_max_actual": "88.98 MW",
+    "percent_production_capacity": "52.243",
+    "electrical_capacity_eia": "117",
+    "electrical_capacity_agree_form_office": "170.318",
+    "steam_capacity_eia": "30",
+    "quantity_steam_boiler_eia": "2",
+    "size_steam_boiler_eia": "78.85",
+    "steam_capacity_erc": "30",
+    "quantity_steam_boiler_erc": "2",
+    "size_steam_boiler_erc": "78.85",
+    "date_measure": "13 มี.ค. 2566",
+    "time_measure": "14",
+    "plant_measure_and_analyze_sample": "Eastern Thai Consulting (1992) ",
+    "analyst_registration_number": "ว-003-ค-4377",
+    "drain_rate_of_project_nox": "",
+    "drain_rate_of_project_sox": "",
+    "source_drain_rate": "",
+    "value_drain_rate_in_eia_ehia": "",
+    "project_owner_representative": "นางสาวญาณวีร์ เกตุเต็ม",
+    "project_owner_representative_tel": "089-547-9808",
+    "project_owner_representative_email": "Yannawee.get@egco.com",
+    "version_id": "2234",
+    "id_form_2": [
+        "3109",
+        "3110",
+        "3111",
+        "3506"
+    ],
+    "sub_plant_name": [
+        "โครงการโรงไฟฟ้าเอ็กโก โคเจน ส่วนขยาย ครั้งที่ 1",
+        "",
+        "",
+        ""
+    ],
+    "chimney_no": [
+        1,
+        2,
+        3,
+        4
+    ],
+    "chimney_name": [
+        " HRSG12",
+        " HRSG21",
+        "HRSG11",
+        "test"
+    ],
+    "type": [
+        "ปกติ",
+        "ปกติ",
+        "ปกติ",
+        ""
+    ],
+    "performance_therapy_technology": [
+        "De NOx Stream Injection",
+        "",
+        "De NOx Stream Injection",
+        ""
+    ],
+    "type_fuel": [
+        "NG",
+        "",
+        "NG",
+        ""
+    ],
+    "use_rate_fuel": [
+        "1",
+        "",
+        "1",
+        ""
+    ],
+    "eia_north_utm_of_chimney": [
+        1415393,
+        1415289,
+        1415289,
+        0
+    ],
+    "eia_east_utm_of_chimney": [
+        738757.5625,
+        738726,
+        738726,
+        0
+    ],
+    "eia_height_of_chimney": [
+        35,
+        35,
+        35,
+        null
+    ],
+    "eia_radius_of_chimney": [
+        3.678,
+        3,
+        3.678,
+        null
+    ],
+    "eia_temperature_gas_drain_out": [
+        380.7,
+        376,
+        380.7,
+        null
+    ],
+    "eia_moisture_gas_drain_out": [
+        null,
+        null,
+        null,
+        null
+    ],
+    "eia_o2_gas_drain_out": [
+        null,
+        null,
+        null,
+        null
+    ],
+    "eia_speed_gas_drain_out": [
+        10.34,
+        30,
+        10.34,
+        null
+    ],
+    "eia_rate_flow_gas_drain_out": [
+        null,
+        null,
+        109.9,
+        null
+    ],
+    "eia_concentration_nox_o2": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "eia_concentration_so2_o2": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "eia_concentration_nox_7_o2": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "eia_concentration_so2_7_o2": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "eia_concentration_nox_7_o2_ppm": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "eia_concentration_so2_7_o2_ppm": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "eia_control_report_nox_ppm": [
+        100,
+        60,
+        100,
+        0
+    ],
+    "eia_control_report_so2_ppm": [
+        5,
+        5,
+        5,
+        0
+    ],
+    "eia_value_standard_nox_ppm": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "eia_value_standard_so2_ppm": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "eia_control_report_nox_gs": [
+        20.7099990844727,
+        9.71000003814697,
+        20.7099990844727,
+        0
+    ],
+    "eia_control_report_so2_gs": [
+        1.44000005722046,
+        1.12999999523163,
+        1.44000005722046,
+        0
+    ],
+    "eia_control_total_report_nox_gs": [
+        30.4200000762939,
+        0,
+        0,
+        0
+    ],
+    "eia_control_total_report_so2_gs": [
+        2.5699999332428,
+        0,
+        0,
+        0
+    ],
+    "actual_north_utm_of_chimney": [
+        1415083,
+        1415083,
+        1415046,
+        0
+    ],
+    "actual_east_utm_of_chimney": [
+        739092,
+        739092,
+        739075,
+        0
+    ],
+    "actual_height_of_chimney": [
+        34.9,
+        null,
+        34.9,
+        null
+    ],
+    "actual_radius_of_chimney": [
+        3.65,
+        null,
+        3.65,
+        null
+    ],
+    "actual_temperature_gas_drain_out": [
+        376.15,
+        null,
+        377.15,
+        null
+    ],
+    "actual_moisture_gas_drain_out": [
+        6.16,
+        null,
+        6.42,
+        null
+    ],
+    "actual_o2_gas_drain_out": [
+        14.6,
+        null,
+        14.96,
+        null
+    ],
+    "actual_speed_gas_drain_out": [
+        15.74,
+        null,
+        15.27,
+        null
+    ],
+    "actual_rate_flow_gas_drain_out": [
+        122.21,
+        null,
+        117.94,
+        null
+    ],
+    "actual_concentration_nox_o2": [
+        57.7999992370605,
+        0,
+        71.5999984741211,
+        0
+    ],
+    "actual_concentration_so2_o2": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "actual_concentration_nox_7_o2": [
+        133.899993896484,
+        0,
+        167.5,
+        0
+    ],
+    "actual_concentration_so2_7_o2": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "actual_concentration_nox_7_o2_ppm": [
+        71.0999984741211,
+        0,
+        89.1999969482422,
+        0
+    ],
+    "actual_concentration_so2_7_o2_ppm": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "actual_control_total_report_nox_gs": [
+        100,
+        60,
+        100,
+        0
+    ],
+    "actual_control_total_report_so2_gs": [
+        5,
+        5,
+        5,
+        0
+    ],
+    "actual_value_standard_nox_ppm": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "actual_value_standard_so2_ppm": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "actual_nox_max_actual_emission_gs": [
+        7.0637001991272,
+        9.71000003814697,
+        8.44499969482422,
+        0
+    ],
+    "actual_so2_max_actual_emission_gs": [
+        0,
+        1.12999999523163,
+        0,
+        0
+    ],
+    "actual_total_nox_max_actual_emission_gs": [
+        16.7737007141113,
+        0,
+        0,
+        0
+    ],
+    "actual_total_so2_max_actual_emission_gs": [
+        1.12999999523163,
+        0,
+        0,
+        0
+    ],
+    "id_sub_plant_delete": [],
+    "raw_material_name_insert": [],
+    "unit_raw_material_name_insert": [],
+    "before_mo_re_raw_material_name_insert": [],
+    "mo_re_raw_material_name_insert": [],
+    "after_mo_re_raw_material_name_insert": [],
+    "raw_material_name_edit": [
+        [
+            "ก๊าซธรรมชาติ",
+            "648"
+        ],
+        [
+            "น้ำมันดิบ",
+            "649"
+        ]
+    ],
+    "unit_raw_material_name_edit": [
+        [
+            "MMSCF",
+            "648"
+        ],
+        [
+            "M3",
+            "649"
+        ]
+    ],
+    "before_mo_re_raw_material_name_edit": [
+        [
+            "267.02",
+            "648"
+        ],
+        [
+            "55236",
+            "649"
+        ]
+    ],
+    "mo_re_raw_material_name_edit": [
+        [
+            "505.83",
+            "648"
+        ],
+        [
+            "97038",
+            "649"
+        ]
+    ],
+    "after_mo_re_raw_material_name_edit": [
+        [
+            "447.68",
+            "648"
+        ],
+        [
+            "89558",
+            "649"
+        ]
+    ],
+    "id_delete_raw_material": [],
+    "product_main_name_insert": [],
+    "unit_product_main_insert": [],
+    "before_mo_re_product_main_insert": [],
+    "mo_re_product_main_insert": [],
+    "after_mo_re_product_main_insert": [],
+    "product_main_name_edit": [
+        [
+            "ไฟฟ้า",
+            "644"
+        ],
+        [
+            "ไอน้ำ",
+            "645"
+        ]
+    ],
+    "unit_product_main_edit": [
+        [
+            "MW-h",
+            "644"
+        ],
+        [
+            "ton",
+            "645"
+        ]
+    ],
+    "before_mo_re_product_main_edit": [
+        [
+            "30914.49",
+            "644"
+        ],
+        [
+            "2342",
+            "645"
+        ]
+    ],
+    "mo_re_product_main_edit": [
+        [
+            "59424.54",
+            "644"
+        ],
+        [
+            "3390",
+            "645"
+        ]
+    ],
+    "after_mo_re_product_main_edit": [
+        [
+            "52408.82",
+            "644"
+        ],
+        [
+            "2084",
+            "645"
+        ]
+    ],
+    "id_delete_prodcut_main": [],
+    "product_get_result_name_insert": [],
+    "unit_product_get_result_insert": [],
+    "before_mo_re_product_get_result_insert": [],
+    "mo_re_product_get_result_2_insert": [],
+    "after_mo_re_product_get_result_insert": [],
+    "product_get_result_name_edit": [
+        [
+            "",
+            "451"
+        ]
+    ],
+    "unit_product_get_result_edit": [
+        [
+            "",
+            "451"
+        ]
+    ],
+    "before_mo_re_product_get_result_edit": [
+        [
+            "",
+            "451"
+        ]
+    ],
+    "mo_re_product_get_result_2_edit": [
+        [
+            "",
+            "451"
+        ]
+    ],
+    "after_mo_re_product_get_result_edit": [
+        [
+            "",
+            "451"
+        ]
+    ],
+    "id_delete_prodcut_get_result": []
+}

@@ -8,6 +8,7 @@ import NavbarMain from './layout/main/navbarMain';
 import SidebarMain from './layout/main/sidebarMain';
 import MainHome from './page/home/mainHome';
 import FormAddProducts from './page/main/formAddProducts';
+import FormEditProducts from './page/main/formEditProducts';
 import './vendor/css/main.css';
 import './vendor/css/layout/navbarMain.css';
 
@@ -41,6 +42,31 @@ function App() {
     // อัปเดต state ด้วยข้อมูลใหม่ที่เพิ่ม
     setData((prevData) => [...prevData, newProduct]);
   };
+  const handleProductUpdated = (updatedProduct) => {
+    // อัปเดต state โดยค้นหาข้อมูลเดิมแล้วแทนที่ด้วยข้อมูลที่แก้ไข
+    setData((prevData) =>
+        prevData.map((product) => {
+          console.log(product.id,":",updatedProduct.id);
+          return  product.id === updatedProduct.id ? updatedProduct : product
+        }
+        )
+    );
+  };
+  const handleProductDeleted = async(id) => {
+    // อัปเดต state โดยลบข้อมูลที่ตรงกับ id ที่ต้องการลบออก
+    // setData((prevData) => prevData.filter((product) => {
+    //   console.log(product.id);
+    //   return product.id !== String(id);
+    //   }
+    // ));
+    setData((prevData) => {
+      const updatedData = prevData.filter((product) => product.id !== id);
+      console.log('Updated data:', updatedData);
+      return updatedData;
+    });
+   
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -58,9 +84,10 @@ function App() {
           
           {/* <TableDataLayout data={data} /> */}
           <Routes>
-          <Route path="/" element={<ContentMain data={data} />} />
+          <Route path="/" element={<ContentMain data={data} onProductDeleted={handleProductDeleted}/>} />
           <Route path="/MainHome" element={<MainHome  />} />
           <Route path="/FormAddProducts" element={<FormAddProducts  onProductAdded={handleProductAdded} />} />
+          <Route path="/FormEditProducts" element={<FormEditProducts  onProductUpdated={handleProductUpdated} />} />
           </Routes>
         </div>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}

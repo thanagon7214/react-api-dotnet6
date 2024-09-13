@@ -18,7 +18,7 @@ const ContentMain  = (props) => {
             <Row style={{marginBottom:'10px'}}>
                 <Col md={12}>
                 
-                    <Button className='flex items-center' onClick={() => navigateLinkContentMain("/FormAddProducts")}><PlusCircle size={16} color="white" className="inline-block" /><span className="text-th-cus ml-2 inline-block" lang="th"> เพิ่มข้อมูล</span></Button>
+                    <Button className='flex items-center' onClick={() => navigateLinkContentMain("/FormAddProducts")}><PlusCircle size={20} color="white" className="inline-block" /><span className="text-th-cus ml-2 text-xl inline-block" lang="th"> เพิ่มข้อมูล</span></Button>
                  
                 </Col>
             </Row>
@@ -37,7 +37,7 @@ const ContentMain  = (props) => {
                         <div className="div-table">
                             <Stack direction="horizontal" gap={3} className="">
                                 <div className="table-1">
-                                <TableDataLayout data={props.data} />
+                                <TableDataLayout data={props.data} onProductDeleted={props.onProductDeleted}/>
                                 </div>
                             </Stack>
                         </div>

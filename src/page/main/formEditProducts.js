@@ -5,20 +5,23 @@ import { Stack,Table,Button,Container, Row, Col, Card,Form } from 'react-bootstr
 import { useTable,useSortBy,usePagination, Navbar, Nav, NavDropdown   } from 'react-table';
 import { PlusCircle ,CardText,FilePlus,ArrowLeft} from 'react-bootstrap-icons';
 
-import { BrowserRouter as Router, Routes, Route, Link ,useNavigate} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link ,useNavigate,useLocation } from "react-router-dom";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
-const FormAddProducts  = (props) => {
+const FormEditProducts  = (props) => {
+    const location = useLocation();
+    const productData = location.state?.productData; // รับค่า productData ที่ส่งมาจาก navigate
     const [isLoading, setIsLoading] = useState(false); 
     const navigateLinkFormAddProducts = useNavigate();
     const [formData, setFormData] = useState({
-        name: '',
-        price: '',
-        type_product: ''
+        id:productData?.id,
+        name: productData?.name,
+        price:productData?.price,
+        type_product: productData?.type_product,
     });
     
     const handleChange = (event) => {
@@ -32,6 +35,7 @@ const FormAddProducts  = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Form Data:', formData);
+        console.log('id:',productData?.id)
         // ส่งข้อมูลฟอร์มไปยัง API หรือจัดการข้อมูลต่อที่นี่
 
         try {
@@ -45,26 +49,26 @@ const FormAddProducts  = (props) => {
               MySwal.showLoading(); // แสดง icon โหลด
             }
           });
-          const response = await fetch('https://localhost:7136/api/products', {
-            method: 'POST',
+          const response = await fetch(`https://localhost:7136/api/products/${productData?.id}`, {
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
           });
-
+          console.log("success",response);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
 
           const data = await response.json();
-          console.log('Product added:', data);
-          if (props.onProductAdded) {
-            props.onProductAdded(data);
+          console.log('Product udpate:', formData);
+          if (props.onProductUpdated) {
+            props.onProductUpdated(formData);
           }
           MySwal.fire({
-            title: 'เพิ่มข้อมูลสำเร็จ',
-            // text: 'This is a SweetAlert2 popup in React!',
+            title: 'แก้ไขข้อมูลสำเร็จ',
+          
             icon: 'success',
             confirmButtonText: 'OK'
           }).then((result) => {
@@ -73,10 +77,11 @@ const FormAddProducts  = (props) => {
             }
           });
         } catch (error) {
+          console.log("fail");
           console.error('There was an error adding the product:', error);
           MySwal.fire({
-            title: 'เพิ่มข้อมูลไม่สำเร็จสำเร็จ',
-            // text: 'This is a SweetAlert2 popup in React!',
+            title: 'แก้ไขข้อมูลไม่สำเร็จ',
+         
             icon: 'error',
             confirmButtonText: 'OK'
           }).then((result) => {
@@ -84,10 +89,10 @@ const FormAddProducts  = (props) => {
           });
         }
         // finally {
-        //   // ยกเลิกสถานะการโหลด ไม่ว่าจะสำเร็จหรือไม่สำเร็จ
+        
         //   setIsLoading(false);
         //   MySwal.fire({
-        //     title: 'เพิ่มข้อมูลไม่สำเร็จสำเร็จ',
+        //     title: 'แก้ไขข้อมูลไม่สำเร็จสำเร็จs',
         //     // text: 'This is a SweetAlert2 popup in React!',
         //     icon: 'error',
         //     confirmButtonText: 'OK'
@@ -109,7 +114,7 @@ const FormAddProducts  = (props) => {
                     <Row style={{marginBottom:'10px'}}>
                         <Col md={12}>
                         <Card>
-                            <Card.Header className='flex items-center'><PlusCircle size={50} color="black" className="inline-block" /><span className="text-th-cus ml-2 inline-block text-4xl" lang="th">เพิ่มสินค้า</span></Card.Header>
+                            <Card.Header className='flex items-center'><PlusCircle size={50} color="black" className="inline-block" /><span className="text-th-cus ml-2 inline-block text-4xl" lang="th">แก้ไขสินค้า</span></Card.Header>
                             <Card.Body>
                            
                             <Form onSubmit={handleSubmit}>
@@ -187,4 +192,4 @@ const FormAddProducts  = (props) => {
     
 }
 
-export default FormAddProducts;
+export default FormEditProducts;
