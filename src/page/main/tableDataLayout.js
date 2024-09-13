@@ -115,7 +115,7 @@ const TableDataLayout  = (props) => {
     );
     const data = React.useMemo(
         () => props.data,
-        []
+        [props.data]
     );
     // const tableInstance = useTable({ columns, data }, useSortBy);
 
