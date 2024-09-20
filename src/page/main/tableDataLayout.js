@@ -37,7 +37,7 @@ const TableDataLayout  = (props) => {
         }).then(async(result) => {
           if (result.isConfirmed) {
             try {
-              const response = await fetch(`https://benzperformance.somee.com/api/products${id}`, { // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
+              const response = await fetch(`https://benzperformance.somee.com/api/products/${id}`, { // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
               // const response = await fetch(`https://localhost:7136/api/products/${id}`, {
                 method: 'DELETE',
               });
