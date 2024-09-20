@@ -9,35 +9,39 @@ import SidebarMain from './layout/main/sidebarMain';
 import MainHome from './page/home/mainHome';
 import FormAddProducts from './page/main/formAddProducts';
 import FormEditProducts from './page/main/formEditProducts';
+import Login from './page/login/login';
 import './vendor/css/main.css';
 import './vendor/css/layout/navbarMain.css';
 
 function App() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
   const location = useLocation();
 
-  useEffect(() => {
-    // fetch('https://benzperformance.somee.com/api/products') // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
-    fetch('https://localhost:7136/api/products')// // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
-    // fetch('https://nodeapi-ruddy.vercel.app/api/products') // ปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล node
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data)
-        setData(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // fetch('https://benzperformance.somee.com/api/products') // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
+  //   fetch('https://localhost:7136/api/products')// // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
+  //   // fetch('https://nodeapi-ruddy.vercel.app/api/products') // ปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล node
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log(data)
+  //       setData(data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setError(error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+  const handleUpdateData = (newData) => {
+    setData(newData); // ฟังก์ชันนี้จะถูกเรียกจากคอมโพเนนต์ลูกเพื่ออัปเดตค่า
+  };
   const handleProductAdded = (newProduct) => {
     // อัปเดต state ด้วยข้อมูลใหม่ที่เพิ่ม
     setData((prevData) => [...prevData, newProduct]);
@@ -67,14 +71,14 @@ function App() {
    
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-  const hideHeaderAndSidebar = location.pathname === "/MainHome";
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // }
+  const hideHeaderAndSidebar = (location.pathname === "/MainHome" || location.pathname === "/Login");
   return (
     
     <div className="layout">
@@ -84,8 +88,9 @@ function App() {
           
           {/* <TableDataLayout data={data} /> */}
           <Routes>
-          <Route path="/" element={<ContentMain data={data} onProductDeleted={handleProductDeleted}/>} />
+          <Route path="/" element={<ContentMain data={data} onUpdateData={handleUpdateData} onProductDeleted={handleProductDeleted}/>} />
           <Route path="/MainHome" element={<MainHome  />} />
+          <Route path="/Login" element={<Login  />} />
           <Route path="/FormAddProducts" element={<FormAddProducts  onProductAdded={handleProductAdded} />} />
           <Route path="/FormEditProducts" element={<FormEditProducts  onProductUpdated={handleProductUpdated} />} />
           </Routes>

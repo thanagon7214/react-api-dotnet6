@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useEffect, useState  } from 'react';
 import TableDataLayout from './../../page/main/tableDataLayout';
 
 import { Stack,Table,Button,Container, Row, Col, Card } from 'react-bootstrap';
@@ -10,6 +10,36 @@ import { BrowserRouter as Router, Routes, Route, Link ,useNavigate} from "react-
 
 const ContentMain  = (props) => {
     const navigateLinkContentMain = useNavigate();
+    
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    useEffect(() => {
+        // fetch('https://benzperformance.somee.com/api/products') // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
+        fetch('https://localhost:7136/api/products')// // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
+        // fetch('https://nodeapi-ruddy.vercel.app/api/products') // ปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล node
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data)
+            props.onUpdateData(data);
+            setLoading(false);
+          })
+          .catch((error) => {
+            setError(error);
+            setLoading(false);
+          });
+      }, []);
+      if (loading) {
+        return <div>Loading...</div>;
+      }
+    
+      if (error) {
+        return <div>Error: {error.message}</div>;
+      }
     return (
         <div className="content">
             

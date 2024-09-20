@@ -1,9 +1,9 @@
-import React, { Component,useState  } from 'react';
+import React, { Component,useState,useEffect  } from 'react';
 
 import { Stack,Table,Button,Container, Row, Col, Card,Form } from 'react-bootstrap';
 
 import { useTable,useSortBy,usePagination, Navbar, Nav, NavDropdown   } from 'react-table';
-import { PlusCircle ,CardText,FilePlus,ArrowLeft} from 'react-bootstrap-icons';
+import { PlusCircle ,CardText,FilePlus,ArrowLeft,XCircleFill} from 'react-bootstrap-icons';
 
 import { BrowserRouter as Router, Routes, Route, Link ,useNavigate,useLocation } from "react-router-dom";
 
@@ -24,82 +24,197 @@ const FormEditProducts  = (props) => {
         type_product: productData?.type_product,
     });
     
+    const  [errors, setErrors] = useState({
+      name: 0,
+      price: 0,
+      type_product: 0
+    });
+
+    const [checkClickSubmit, setCheckClickSubmit] = useState(false);
+    //ค่า checkClickSubmit ไม่ set เป็น true ทัดที เลยใช้ useEffect
+    useEffect(() => {
+      if (checkClickSubmit) {
+        handleValidation(formData);
+      }
+    }, [checkClickSubmit]);
     const handleChange = (event) => {
+      // const { name, value } = event.target;
+      // setFormData({
+      //   ...formData,
+      //   [name]: value
+      // });
+      event.preventDefault();
       const { name, value } = event.target;
-      setFormData({
-        ...formData,
-        [name]: value
+      setFormData((prevFormData) => {
+        const updatedFormData = {
+          ...prevFormData,
+          [name]: value
+        };
+    
+        // เรียก handleValidation หลังจากอัปเดตข้อมูลเสร็จ
+        handleValidation(updatedFormData);
+    
+        return updatedFormData;
       });
     };
+
+    const handleValidation=(formData) =>{
+     
+      let errorName=0;
+      let errorPrice=0;
+      let errorTypeProduct=0;
+      let formIsValid = false;
+      if(!formData.name.trim() && checkClickSubmit){
+       errorName=1;
+      }else{
+        errorName=0;
+      }
+      if(!formData.price &&checkClickSubmit){
+       
+        errorPrice=1;
+      }else{
+        errorPrice=0;
+      }
+      if(!formData.type_product &&checkClickSubmit){
+        errorTypeProduct=1;
+      }else{
+        errorTypeProduct=0;
+      }
+      if(formData.name.trim()&&formData.price&&formData.type_product){
+        formIsValid = true;
+      }else{
+        formIsValid = false;
+      }
+
+      setErrors({
+       name:errorName,
+       price:errorPrice,
+       type_product:errorTypeProduct
+      });
+      return formIsValid; 
+    }
     
     const handleSubmit = async (event) => {
+        setCheckClickSubmit(true);
         event.preventDefault();
         console.log('Form Data:', formData);
         console.log('id:',productData?.id)
-        // ส่งข้อมูลฟอร์มไปยัง API หรือจัดการข้อมูลต่อที่นี่
-
-        try {
-          setIsLoading(true);
-
-          // ใช้ SweetAlert2 ในการแสดงกล่องโหลด
+        if (!handleValidation(formData)) {
           MySwal.fire({
-            title: 'กำลังโหลด...',
-            allowOutsideClick: false, // ไม่ให้ปิด popup ระหว่างโหลด
-            didOpen: () => {
-              MySwal.showLoading(); // แสดง icon โหลด
-            }
-          });
-          const response = await fetch(`https://localhost:7136/api/products/${productData?.id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-          console.log("success",response);
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-
-          const data = await response.json();
-          console.log('Product udpate:', formData);
-          if (props.onProductUpdated) {
-            props.onProductUpdated(formData);
-          }
-          MySwal.fire({
-            title: 'แก้ไขข้อมูลสำเร็จ',
-          
-            icon: 'success',
-            confirmButtonText: 'OK'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              navigateLinkFormAddProducts('/'); // ทำการ redirect เมื่อกด OK
-            }
-          });
-        } catch (error) {
-          console.log("fail");
-          console.error('There was an error adding the product:', error);
-          MySwal.fire({
-            title: 'แก้ไขข้อมูลไม่สำเร็จ',
-         
+            title: 'กรุณากรอกข้อมูล',
+            // text: 'This is a SweetAlert2 popup in React!',
             icon: 'error',
             confirmButtonText: 'OK'
           }).then((result) => {
            
           });
+        }else{
+           // ส่งข้อมูลฟอร์มไปยัง API หรือจัดการข้อมูลต่อที่นี่
+
+          try {
+            setIsLoading(true);
+
+            // ใช้ SweetAlert2 ในการแสดงกล่องโหลด
+            MySwal.fire({
+              title: 'กำลังโหลด...',
+              allowOutsideClick: false, // ไม่ให้ปิด popup ระหว่างโหลด
+              didOpen: () => {
+                MySwal.showLoading(); // แสดง icon โหลด
+              }
+            });
+            const response = await fetch(`https://localhost:7136/api/products/${productData?.id}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            });
+            console.log("success",response);
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('Product udpate:', formData);
+            if (props.onProductUpdated) {
+              props.onProductUpdated(formData);
+            }
+            MySwal.fire({
+              title: 'แก้ไขข้อมูลสำเร็จ',
+            
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                navigateLinkFormAddProducts('/'); // ทำการ redirect เมื่อกด OK
+              }
+            });
+          } catch (error) {
+            console.log("fail");
+            console.error('There was an error adding the product:', error);
+            MySwal.fire({
+              title: 'แก้ไขข้อมูลไม่สำเร็จ',
+          
+              icon: 'error',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+            
+            });
+          }
         }
-        // finally {
-        
-        //   setIsLoading(false);
+        // ส่งข้อมูลฟอร์มไปยัง API หรือจัดการข้อมูลต่อที่นี่
+
+        // try {
+        //   setIsLoading(true);
+
+        //   // ใช้ SweetAlert2 ในการแสดงกล่องโหลด
         //   MySwal.fire({
-        //     title: 'แก้ไขข้อมูลไม่สำเร็จสำเร็จs',
-        //     // text: 'This is a SweetAlert2 popup in React!',
+        //     title: 'กำลังโหลด...',
+        //     allowOutsideClick: false, // ไม่ให้ปิด popup ระหว่างโหลด
+        //     didOpen: () => {
+        //       MySwal.showLoading(); // แสดง icon โหลด
+        //     }
+        //   });
+        //   const response = await fetch(`https://localhost:7136/api/products/${productData?.id}`, {
+        //     method: 'PUT',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(formData),
+        //   });
+        //   console.log("success",response);
+        //   if (!response.ok) {
+        //     throw new Error('Network response was not ok');
+        //   }
+
+        //   const data = await response.json();
+        //   console.log('Product udpate:', formData);
+        //   if (props.onProductUpdated) {
+        //     props.onProductUpdated(formData);
+        //   }
+        //   MySwal.fire({
+        //     title: 'แก้ไขข้อมูลสำเร็จ',
+          
+        //     icon: 'success',
+        //     confirmButtonText: 'OK'
+        //   }).then((result) => {
+        //     if (result.isConfirmed) {
+        //       navigateLinkFormAddProducts('/'); // ทำการ redirect เมื่อกด OK
+        //     }
+        //   });
+        // } catch (error) {
+        //   console.log("fail");
+        //   console.error('There was an error adding the product:', error);
+        //   MySwal.fire({
+        //     title: 'แก้ไขข้อมูลไม่สำเร็จ',
+         
         //     icon: 'error',
         //     confirmButtonText: 'OK'
         //   }).then((result) => {
            
         //   });
         // }
+       
       };
  
         return (
@@ -130,6 +245,9 @@ const FormEditProducts  = (props) => {
                                       placeholder="Enter your name"
                                     />
                                   </Form.Group>
+                                  {errors.name == 1? <p className="text-th-cus text-danger flex" lang="th"><XCircleFill className="inline-block"/> <span className="inline-block">กรุณากรอกชื่อสินค้า</span></p> 
+                                  : errors.name == 2?<p className="text-th-cus text-danger" lang="th"> </p> 
+                                  :<p className="text-th-cus text-danger" lang="th"> </p>}
                                 </Col>
 
                                 <Col xs={12} md={6}>
@@ -143,6 +261,9 @@ const FormEditProducts  = (props) => {
                                       placeholder="Enter your price"
                                     />
                                   </Form.Group>
+                                  {errors.price == 1? <p className="text-th-cus text-danger flex" lang="th"><XCircleFill className="inline-block"/> <span className="inline-block">กรุณากรอกราคาสินค้า</span></p> 
+                                  : errors.price == 2?<p className="text-th-cus text-danger" lang="th"> </p> 
+                                  :<p className="text-th-cus text-danger" lang="th"> </p>}
                                 </Col>
                               </Row>
 
@@ -155,7 +276,7 @@ const FormEditProducts  = (props) => {
                                       value={formData.type_product}
                                       onChange={handleChange}
                                       aria-label="Select product type">
-                                      <option>Open this select menu</option>
+                                      <option value="">Open this select menu</option>
                                       <option value="1">เสื้อ</option>
                                       <option value="2">รองเท้า</option>
                                       <option value="3">เครื่องประดับ</option>
@@ -169,6 +290,9 @@ const FormEditProducts  = (props) => {
                                       
                                     /> */}
                                   </Form.Group>
+                                  {errors.type_product == 1? <p className="text-th-cus text-danger flex" lang="th"><XCircleFill className="inline-block"/> <span className="inline-block">กรุณาเลือดประเถทสินค้า</span></p> 
+                                  : errors.type_product == 2?<p className="text-th-cus text-danger" lang="th"> </p> 
+                                  :<p className="text-th-cus text-danger" lang="th"> </p>}
                                 </Col>
                               </Row>
 
