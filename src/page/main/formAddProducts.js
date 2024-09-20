@@ -113,7 +113,8 @@ const FormAddProducts  = (props) => {
                 MySwal.showLoading(); // แสดง icon โหลด
               }
             });
-            const response = await fetch('https://localhost:7136/api/products', {
+            const response = await fetch('https://benzperformance.somee.com/api/products', {
+            // const response = await fetch('https://localhost:7136/api/products', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
