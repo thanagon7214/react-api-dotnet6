@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { AppProvider } from './AppContext'; 
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -18,7 +19,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 ReactDOM.render(
   <React.StrictMode>
      <Router>
+     <AppProvider>
     <App />
+    </AppProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

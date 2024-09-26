@@ -1,4 +1,4 @@
-import React, { Component,useState,useEffect   } from 'react';
+import React, { Component,useState,useEffect,useContext   } from 'react';
 
 import { Stack,Table,Button,Container, Row, Col, Card,Form } from 'react-bootstrap';
 
@@ -9,10 +9,12 @@ import { BrowserRouter as Router, Routes, Route, Link ,useNavigate} from "react-
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { AppContext } from '../../AppContext';
 
 const MySwal = withReactContent(Swal);
 
 const FormAddProducts  = (props) => {
+  const { handleProductAdded } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(false); 
     const navigateLinkFormAddProducts = useNavigate();
     const [checkClickSubmit, setCheckClickSubmit] = useState(false); 
@@ -126,11 +128,16 @@ const FormAddProducts  = (props) => {
               throw new Error('Network response was not ok');
             }
 
-            const data = await response.json();
-            console.log('Product added:', data);
-            if (props.onProductAdded) {
-              props.onProductAdded(data);
+            const datas = await response.json();
+            console.log('Product added:', datas);
+            // if (props.onProductAdded) {
+            //   props.onProductAdded(datas);
+              
+            // }
+             if (handleProductAdded) {
+              handleProductAdded(datas);
             }
+            
             MySwal.fire({
               title: 'เพิ่มข้อมูลสำเร็จ',
               // text: 'This is a SweetAlert2 popup in React!',

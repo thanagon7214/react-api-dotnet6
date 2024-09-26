@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component,useContext } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button,Stack } from 'react-bootstrap';
 import {Link ,useNavigate} from 'react-router-dom';
 import '../../vendor/css/layout/navbarMain.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {AppContext} from '../../AppContext'
 const NavbarMain  = (props) => { 
+    const { username,handleUserUpdate } = useContext(AppContext);
     const navigateLinkNavBarMain = useNavigate();
     const handleSignOut = (event) => {
         event.preventDefault();
         console.log("s");
         // username
         localStorage.removeItem('username');
-        props.onUserUpdated("")
+        // props.onUserUpdated("")
+        handleUserUpdate("");
         navigateLinkNavBarMain("/Login");
     }
 
@@ -33,7 +36,7 @@ const NavbarMain  = (props) => {
                 </NavDropdown>
                 
             </Nav>
-            <Navbar.Brand  className="text-th-cus"  lang="th">{props.username}</Navbar.Brand>
+            <Navbar.Brand  className="text-th-cus"  lang="th">{username}</Navbar.Brand>
             <Navbar.Brand  className="text-th-cus text-sign-out"  lang="th" onClick={handleSignOut}>ออกจากระบบ</Navbar.Brand>
             {/* <Nav className="mr-auto">
                 <Button className="text-th-cus" lang="th" variant="outline-dark" >ออกจากระบบ</Button>

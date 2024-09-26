@@ -1,4 +1,4 @@
-import React, { Component,useState,useEffect } from 'react';
+import React, { Component,useState,useEffect,useContext } from 'react';
 // import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 
 import '../../vendor/css/login.css'
@@ -10,6 +10,7 @@ import {XCircleFill} from 'react-bootstrap-icons';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { BrowserRouter as Router, Routes, Route, Link ,useNavigate} from "react-router-dom";
+import { AppContext } from '../../AppContext'; // นำเข้า AppContext
 
 const MySwal = withReactContent(Swal);
 
@@ -23,6 +24,7 @@ const Login  = (props) => {
         user: 0,
         pass: 0,
     });
+    const { handleUserUpdate } = useContext(AppContext);
     const navigateLinkFormAddProducts = useNavigate();
     const [checkClickSubmit, setCheckClickSubmit] = useState(false); 
     useEffect(() => {
@@ -115,8 +117,10 @@ const Login  = (props) => {
                   icon: 'success',
                   confirmButtonText: 'OK'
                 }).then(() => {
-                  props.onUserUpdated(localStorage.getItem('username'))
+                  // props.onUserUpdated(localStorage.getItem('username'))
+                 
                   localStorage.setItem('username', objectUser[0].user_name);
+                  handleUserUpdate(localStorage.getItem('username'));
                   navigateLinkFormAddProducts('/'); // นำผู้ใช้ไปยังหน้าหลักเมื่อสำเร็จ
                 });
               } else if(data.result==1) {

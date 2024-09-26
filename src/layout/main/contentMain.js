@@ -1,16 +1,16 @@
-import React, { Component,useEffect, useState  } from 'react';
+import React, { Component,useEffect, useState,useContext   } from 'react';
 import TableDataLayout from './../../page/main/tableDataLayout';
 
 import { Stack,Table,Button,Container, Row, Col, Card } from 'react-bootstrap';
 import { PlusCircle ,CardText} from 'react-bootstrap-icons';
 import { BrowserRouter as Router, Routes, Route, Link ,useNavigate} from "react-router-dom";
-
+import { AppContext } from '../../AppContext';
 
 // import { useTable,useSortBy,usePagination, Navbar, Nav, NavDropdown, Form, FormControl    } from 'react-table';
 
 const ContentMain  = (props) => {
     const navigateLinkContentMain = useNavigate();
-    
+    const { data , handleStartData} = useContext(AppContext);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     useEffect(() => {
@@ -23,10 +23,14 @@ const ContentMain  = (props) => {
             }
             return response.json();
           })
-          .then((data) => {
-            console.log(data)
-            props.onUpdateData(data);
+          .then((datas) => {
+            console.log(datas)
+            // props.onUpdateData(data);
+            if(datas){
+            handleStartData(datas)
+            }
             setLoading(false);
+            
           })
           .catch((error) => {
             setError(error);
@@ -67,7 +71,8 @@ const ContentMain  = (props) => {
                         <div className="div-table">
                             <Stack direction="horizontal" gap={3} className="">
                                 <div className="table-1">
-                                <TableDataLayout data={props.data} onProductDeleted={props.onProductDeleted}/>
+                                {/* <TableDataLayout data={props.data} onProductDeleted={props.onProductDeleted}/> */}
+                                <TableDataLayout />
                                 </div>
                             </Stack>
                         </div>

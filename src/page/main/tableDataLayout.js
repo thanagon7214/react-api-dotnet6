@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component ,useContext} from 'react';
 
 import { Stack,Table,Button,Container, Row, Col, Card } from 'react-bootstrap';
 
@@ -10,11 +10,13 @@ import { useNavigate} from "react-router-dom";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { AppContext } from '../../AppContext';
 
 const MySwal = withReactContent(Swal);
 
 const TableDataLayout  = (props) => {
     const navigateLinkTableDataLayout = useNavigate();
+    const { data,handleProductDeleted } = useContext(AppContext);
     const handleEdit = (rowData) => {
         // ฟังก์ชันที่ถูกเรียกเมื่อคลิกที่ปุ่มแก้ไข
         console.log('แก้ไขข้อมูล: ', rowData);
@@ -45,8 +47,11 @@ const TableDataLayout  = (props) => {
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
-              if (props.onProductDeleted) {
-                props.onProductDeleted(id);
+              // if (props.onProductDeleted) {
+              //   props.onProductDeleted(id);
+              // }
+              if(handleProductDeleted){
+                handleProductDeleted(id)
               }
               MySwal.fire({
                 title: 'เพิ่มข้อมูลสำเร็จ',
@@ -114,9 +119,9 @@ const TableDataLayout  = (props) => {
         ],
         []
     );
-    const data = React.useMemo(
-        () => props.data,
-        [props.data]
+    const datas = React.useMemo(
+        () => data,
+        [data]
     );
     // const tableInstance = useTable({ columns, data }, useSortBy);
 

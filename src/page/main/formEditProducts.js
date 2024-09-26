@@ -1,4 +1,4 @@
-import React, { Component,useState,useEffect  } from 'react';
+import React, { Component,useState,useEffect,useContext  } from 'react';
 
 import { Stack,Table,Button,Container, Row, Col, Card,Form } from 'react-bootstrap';
 
@@ -9,11 +9,13 @@ import { BrowserRouter as Router, Routes, Route, Link ,useNavigate,useLocation }
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { AppContext } from '../../AppContext';
 
 const MySwal = withReactContent(Swal);
 
 const FormEditProducts  = (props) => {
     const location = useLocation();
+    const { handleProductUpdated } = useContext(AppContext);
     const productData = location.state?.productData; // รับค่า productData ที่ส่งมาจาก navigate
     const [isLoading, setIsLoading] = useState(false); 
     const navigateLinkFormAddProducts = useNavigate();
@@ -137,9 +139,13 @@ const FormEditProducts  = (props) => {
 
             const data = await response.json();
             console.log('Product udpate:', formData);
-            if (props.onProductUpdated) {
-              props.onProductUpdated(formData);
+            // if (props.onProductUpdated) {
+            //   props.onProductUpdated(formData);
+            // }
+            if (handleProductUpdated) {
+              handleProductUpdated(formData);
             }
+            
             MySwal.fire({
               title: 'แก้ไขข้อมูลสำเร็จ',
             
