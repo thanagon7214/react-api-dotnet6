@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 // import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation ,useNavigate,Link } from 'react-router-dom';
 // import TableDataLayout from './page/main/tableDataLayout';
 import ContentMain from './layout/main/contentMain';
 import NavbarMain from './layout/main/navbarMain';
@@ -15,30 +15,11 @@ import './vendor/css/layout/navbarMain.css';
 
 function App() {
   const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
+  const [username, setUsername] = useState('');
   const location = useLocation();
+  const navigateLinkApp = useNavigate();
 
-  // useEffect(() => {
-  //   // fetch('https://benzperformance.somee.com/api/products') // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
-  //   fetch('https://localhost:7136/api/products')// // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
-  //   // fetch('https://nodeapi-ruddy.vercel.app/api/products') // ปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล node
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data)
-  //       setData(data);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //       setLoading(false);
-  //     });
-  // }, []);
+
   const handleUpdateData = (newData) => {
     setData(newData); // ฟังก์ชันนี้จะถูกเรียกจากคอมโพเนนต์ลูกเพื่ออัปเดตค่า
   };
@@ -58,11 +39,7 @@ function App() {
   };
   const handleProductDeleted = async(id) => {
     // อัปเดต state โดยลบข้อมูลที่ตรงกับ id ที่ต้องการลบออก
-    // setData((prevData) => prevData.filter((product) => {
-    //   console.log(product.id);
-    //   return product.id !== String(id);
-    //   }
-    // ));
+ 
     setData((prevData) => {
       const updatedData = prevData.filter((product) => product.id !== id);
       console.log('Updated data:', updatedData);
@@ -70,32 +47,46 @@ function App() {
     });
    
   };
+  useEffect(() => {
+    // ดึงค่า username จาก localStorage เมื่อ component ถูกโหลด
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, [username]);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  const handleUserUpdate =(data)=>{
+    setUsername(data);
+  }
 
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
   const hideHeaderAndSidebar = (location.pathname === "/MainHome" || location.pathname === "/Login");
+  const checkPathLogin = location.pathname === "/Login";
   return (
     
     <div className="layout">
-      {!hideHeaderAndSidebar&&<NavbarMain />}
-        <div className="main">
-          {!hideHeaderAndSidebar&&<SidebarMain />}
-          
-          {/* <TableDataLayout data={data} /> */}
-          <Routes>
-          <Route path="/" element={<ContentMain data={data} onUpdateData={handleUpdateData} onProductDeleted={handleProductDeleted}/>} />
-          <Route path="/MainHome" element={<MainHome  />} />
-          <Route path="/Login" element={<Login  />} />
-          <Route path="/FormAddProducts" element={<FormAddProducts  onProductAdded={handleProductAdded} />} />
-          <Route path="/FormEditProducts" element={<FormEditProducts  onProductUpdated={handleProductUpdated} />} />
-          </Routes>
-        </div>
-      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+      {username && !checkPathLogin?
+        <>
+        {!hideHeaderAndSidebar&&<NavbarMain username={username} onUserUpdated={handleUserUpdate}/>}
+          <div className="main">
+            {!hideHeaderAndSidebar&&<SidebarMain />}
+            
+            {/* <TableDataLayout data={data} /> */}
+            <Routes>
+            <Route path="/" element={<ContentMain data={data} onUpdateData={handleUpdateData} onProductDeleted={handleProductDeleted}/>} />
+            <Route path="/MainHome" element={<MainHome  />} />
+            {/* <Route path="/Login" element={<Login  />} /> */}
+            <Route path="/FormAddProducts" element={<FormAddProducts  onProductAdded={handleProductAdded} />} />
+            <Route path="/FormEditProducts" element={<FormEditProducts  onProductUpdated={handleProductUpdated} />} />
+            </Routes>
+          </div>
+        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+        </>
+      :!username && !checkPathLogin?<>ยังไม่ได้ login<Link to="/Login">ไปหน้า login</Link></>
+      :!username && checkPathLogin?<Routes><Route path="/Login" element={<Login  onUserUpdated={handleUserUpdate}/>} /></Routes>:<><Link  to="/">กลับไป หน้าหลักการจัดการ</Link ></>
+      }
+      
+            
+
     </div>
    
   );
