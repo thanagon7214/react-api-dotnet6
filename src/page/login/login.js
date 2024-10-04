@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { BrowserRouter as Router, Routes, Route, Link ,useNavigate} from "react-router-dom";
 import { AppContext } from '../../AppContext'; // นำเข้า AppContext
+// ใช้ Redux hooks
+import { useSelector, useDispatch } from 'react-redux';
+import { setUsername } from '../../actions';
 
 const MySwal = withReactContent(Swal);
 
@@ -24,7 +27,11 @@ const Login  = (props) => {
         user: 0,
         pass: 0,
     });
-    const { handleUserUpdate } = useContext(AppContext);
+    //Context Api
+    // const { handleUserUpdate } = useContext(AppContext);
+     //Redux
+     const dispatch = useDispatch();
+     
     const navigateLinkFormAddProducts = useNavigate();
     const [checkClickSubmit, setCheckClickSubmit] = useState(false); 
     useEffect(() => {
@@ -120,7 +127,10 @@ const Login  = (props) => {
                   // props.onUserUpdated(localStorage.getItem('username'))
                  
                   localStorage.setItem('username', objectUser[0].user_name);
-                  handleUserUpdate(localStorage.getItem('username'));
+                   //Context Api
+                  // handleUserUpdate(localStorage.getItem('username'));
+                  //Redux
+                  dispatch(setUsername(localStorage.getItem('username')));
                   navigateLinkFormAddProducts('/'); // นำผู้ใช้ไปยังหน้าหลักเมื่อสำเร็จ
                 });
               } else if(data.result==1) {

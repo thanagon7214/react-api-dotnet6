@@ -11,11 +11,16 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { AppContext } from '../../AppContext';
 
+// ใช้ Redux hooks
+import {  useSelector,useDispatch } from 'react-redux';
+import { updateProduct } from '../../actions';
+
 const MySwal = withReactContent(Swal);
 
 const FormEditProducts  = (props) => {
     const location = useLocation();
-    const { handleProductUpdated } = useContext(AppContext);
+    // const { handleProductUpdated } = useContext(AppContext);
+    const dispatch = useDispatch();
     const productData = location.state?.productData; // รับค่า productData ที่ส่งมาจาก navigate
     const [isLoading, setIsLoading] = useState(false); 
     const navigateLinkFormAddProducts = useNavigate();
@@ -139,13 +144,13 @@ const FormEditProducts  = (props) => {
 
             const data = await response.json();
             console.log('Product udpate:', formData);
-            // if (props.onProductUpdated) {
-            //   props.onProductUpdated(formData);
-            // }
-            if (handleProductUpdated) {
-              handleProductUpdated(formData);
-            }
             
+            //context api
+            // if (handleProductUpdated) {
+            //   handleProductUpdated(formData);
+            // }
+            //redux
+            dispatch(updateProduct(formData)); 
             MySwal.fire({
               title: 'แก้ไขข้อมูลสำเร็จ',
             

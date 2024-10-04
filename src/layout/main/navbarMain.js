@@ -4,8 +4,16 @@ import {Link ,useNavigate} from 'react-router-dom';
 import '../../vendor/css/layout/navbarMain.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {AppContext} from '../../AppContext'
+// ใช้ Redux hooks
+import { useSelector, useDispatch } from 'react-redux';
+import { setUsername } from '../../actions';
 const NavbarMain  = (props) => { 
-    const { username,handleUserUpdate } = useContext(AppContext);
+    //Context Api
+    // const { username,handleUserUpdate } = useContext(AppContext);
+    //Redux
+    const dispatch = useDispatch();
+    const username = useSelector((state) => state.username); 
+
     const navigateLinkNavBarMain = useNavigate();
     const handleSignOut = (event) => {
         event.preventDefault();
@@ -13,7 +21,12 @@ const NavbarMain  = (props) => {
         // username
         localStorage.removeItem('username');
         // props.onUserUpdated("")
-        handleUserUpdate("");
+
+        //Context Api
+        // handleUserUpdate("");
+        //redux
+        dispatch(setUsername("")); 
+
         navigateLinkNavBarMain("/Login");
     }
 

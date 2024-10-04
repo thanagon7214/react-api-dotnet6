@@ -5,12 +5,17 @@ import { Stack,Table,Button,Container, Row, Col, Card } from 'react-bootstrap';
 import { PlusCircle ,CardText} from 'react-bootstrap-icons';
 import { BrowserRouter as Router, Routes, Route, Link ,useNavigate} from "react-router-dom";
 import { AppContext } from '../../AppContext';
+// ใช้ Redux hooks
+import {  useDispatch } from 'react-redux';
+import { setData } from '../../actions';
+
 
 // import { useTable,useSortBy,usePagination, Navbar, Nav, NavDropdown, Form, FormControl    } from 'react-table';
 
 const ContentMain  = (props) => {
     const navigateLinkContentMain = useNavigate();
-    const { data , handleStartData} = useContext(AppContext);
+    // const { data , handleStartData} = useContext(AppContext);
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     useEffect(() => {
@@ -27,7 +32,9 @@ const ContentMain  = (props) => {
             console.log(datas)
             // props.onUpdateData(data);
             if(datas){
-            handleStartData(datas)
+              //Context Api
+            // handleStartData(datas)
+            dispatch(setData(datas)); 
             }
             setLoading(false);
             

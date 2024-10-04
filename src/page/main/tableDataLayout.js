@@ -12,11 +12,19 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { AppContext } from '../../AppContext';
 
+// ใช้ Redux hooks
+import {  useSelector,useDispatch } from 'react-redux';
+import { deleteProduct } from '../../actions';
+
 const MySwal = withReactContent(Swal);
 
 const TableDataLayout  = (props) => {
     const navigateLinkTableDataLayout = useNavigate();
-    const { data,handleProductDeleted } = useContext(AppContext);
+     //Context Api
+    // const { data,handleProductDeleted } = useContext(AppContext);
+    //Redux
+    const dispatch = useDispatch();
+    const data = useSelector((state) => state.data); 
     const handleEdit = (rowData) => {
         // ฟังก์ชันที่ถูกเรียกเมื่อคลิกที่ปุ่มแก้ไข
         console.log('แก้ไขข้อมูล: ', rowData);
@@ -39,6 +47,14 @@ const TableDataLayout  = (props) => {
         }).then(async(result) => {
           if (result.isConfirmed) {
             try {
+                // ใช้ SweetAlert2 ในการแสดงกล่องโหลด
+              MySwal.fire({
+                title: 'กำลังโหลด...',
+                allowOutsideClick: false, // ไม่ให้ปิด popup ระหว่างโหลด
+                didOpen: () => {
+                  MySwal.showLoading(); // แสดง icon โหลด
+                }
+              });
               const response = await fetch(`https://benzperformance.somee.com/api/products/${id}`, { // เปลี่ยน URL ให้เป็น API ที่ต้องการดึงข้อมูล .net core6
               // const response = await fetch(`https://localhost:7136/api/products/${id}`, {
                 method: 'DELETE',
@@ -47,12 +63,11 @@ const TableDataLayout  = (props) => {
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
-              // if (props.onProductDeleted) {
-              //   props.onProductDeleted(id);
+             
+              // if(handleProductDeleted){
+              //   handleProductDeleted(id)
               // }
-              if(handleProductDeleted){
-                handleProductDeleted(id)
-              }
+              dispatch(deleteProduct(id));
               MySwal.fire({
                 title: 'เพิ่มข้อมูลสำเร็จ',
                 // text: 'This is a SweetAlert2 popup in React!',

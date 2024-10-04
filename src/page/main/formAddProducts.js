@@ -11,10 +11,15 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { AppContext } from '../../AppContext';
 
+// ใช้ Redux hooks
+import {  useSelector,useDispatch } from 'react-redux';
+import { addProduct } from '../../actions';
+
 const MySwal = withReactContent(Swal);
 
 const FormAddProducts  = (props) => {
-  const { handleProductAdded } = useContext(AppContext);
+    // const { handleProductAdded } = useContext(AppContext);
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false); 
     const navigateLinkFormAddProducts = useNavigate();
     const [checkClickSubmit, setCheckClickSubmit] = useState(false); 
@@ -134,9 +139,10 @@ const FormAddProducts  = (props) => {
             //   props.onProductAdded(datas);
               
             // }
-             if (handleProductAdded) {
-              handleProductAdded(datas);
-            }
+            //  if (handleProductAdded) {
+            //   handleProductAdded(datas);
+            // }
+            dispatch(addProduct(datas)); 
             
             MySwal.fire({
               title: 'เพิ่มข้อมูลสำเร็จ',

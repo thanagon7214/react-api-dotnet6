@@ -10,19 +10,29 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppProvider } from './AppContext'; 
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
+// นำเข้า Provider และ Store จาก Redux
+import { Provider } from 'react-redux';
+import store from './store';
+
+
+// ReactDOM.render(
 //   <React.StrictMode>
+//      <Router>
+//      <AppProvider>
 //     <App />
-//   </React.StrictMode>
+//     </AppProvider>
+//     </Router>
+//   </React.StrictMode>,
+//   document.getElementById('root')
 // );
+
 ReactDOM.render(
   <React.StrictMode>
-     <Router>
-     <AppProvider>
-    <App />
-    </AppProvider>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
