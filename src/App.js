@@ -12,6 +12,9 @@ import FormEditProducts from './page/main/formEditProducts';
 import Login from './page/login/login';
 import './vendor/css/main.css';
 import './vendor/css/layout/navbarMain.css';
+
+//front store
+import NavbarMainHome from './layout/home/navbarMain';
 import { AppProvider,AppContext } from './AppContext'; // นำเข้า AppProvider
 
 // ใช้ Redux hooks
@@ -42,10 +45,12 @@ function App() {
 
   const hideHeaderAndSidebar = (location.pathname === "/MainHome" || location.pathname === "/Login");
   const checkPathLogin = location.pathname === "/Login";
+  const checkBackStore =(location.pathname === "/"||location.pathname === "/FormAddProducts"||location.pathname === "/FormEditProducts"||location.pathname === "/Login")
+  const checkFrontStore =(location.pathname === "/MainHome")
   return (
    
     <div className="layout">
-     
+     {checkBackStore?<>
       {username && !checkPathLogin?
         <>
        
@@ -71,8 +76,18 @@ function App() {
       // :!username && checkPathLogin?<Routes><Route path="/Login" element={<Login  onUserUpdated={handleUserUpdate}/>} /></Routes>:<><Link  to="/">กลับไป หน้าหลักการจัดการ</Link ></>
       :!username && checkPathLogin?<Routes><Route path="/Login" element={<Login />} /></Routes>:<><Link  to="/">กลับไป หน้าหลักการจัดการ</Link ></>
       }
-      
-    
+      </>:<></>
+    }
+    {checkFrontStore?<>
+      <NavbarMainHome />
+      <div className="main">
+      <Routes>
+      <Route path="/MainHome" element={<MainHome  />} />
+      </Routes>
+      </div>
+    </>:<></>
+
+    }
 
     </div>
      
