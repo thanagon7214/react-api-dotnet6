@@ -1,178 +1,98 @@
-import React, { Component,useEffect } from 'react';
 
-import {
-        MDBBreadcrumb,
-        MDBBreadcrumbItem,
-        MDBContainer,
-        MDBNavbar,
-        MDBInputGroup,
-        MDBIcon,
-        MDBInput,
-        MDBNavbarLink,
-        MDBNavbarNav,
-        MDBNavbarItem,
-        MDBDropdown,
-        MDBDropdownToggle,
-        MDBDropdownMenu,
-        MDBDropdownItem,
-        MDBBadge,
-} from 'mdb-react-ui-kit';
-      
+import React, { Component,useEffect,useState } from 'react';
 
 
+import { Navbar, Container,Button ,Form ,Nav ,NavDropdown,Offcanvas  } from 'react-bootstrap';
+import { CartFill } from 'react-bootstrap-icons';
+import Stack from 'react-bootstrap/Stack';
+import styles from '../../vendor/css/frontStore/home/navbartop.module.css'; 
+const NavbarMain  = (props) => {
+  useEffect(() => {
+    // สร้างลิสต์ของไฟล์ CSS ที่ต้องการโหลด
+    const cssFiles = [
+        '/css/bootstrap.min.css', 
+     
+    ];
 
-const MainHome  = (props) => {
-useEffect(() => {
-                // โหลด CSS สำหรับ MDBReact เฉพาะคอมโพเนนต์นี้
-                const link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = '/css/mdb.min.css'; // path ของไฟล์ mdb.min.css ที่คุณต้องการโหลด 
-                document.head.appendChild(link);
-            
-                // ลบ CSS ออกเมื่อคอมโพเนนต์นี้ถูก Unmount
-                return () => {
-                  document.head.removeChild(link);
-                };
+    // สร้างและเพิ่ม <link> สำหรับแต่ละไฟล์ CSS
+    const links = cssFiles.map(file => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = file;
+        document.head.appendChild(link);
+        return link;
+    });
+
+    // ลบ <link> เมื่อลองโหนดถูก Unmount
+    return () => {
+        links.forEach(link => {
+            document.head.removeChild(link);
+        });
+    };
 }, []);
- 
 
+const [show, setShow] = useState(false);
+
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
+
+ 
    
    
     
         return (
-            <>
-            <header>
-                       {/* Main Navigation */}
-      <MDBNavbar expand='lg' light className='bg-white'>
-        {/* Container wrapper */}
-        <MDBContainer fluid>
-          {/* Search form */}
-          <MDBInputGroup textAfter={<MDBIcon fas icon='search' />} noBorder>
-            <MDBInput
-              autoComplete='off'
-              className='active'
-              type='search'
-              placeholder='Search (ctrl + "/" to focus)'
-              style={{ minWidth: '225px' }}
-            />
-          </MDBInputGroup>
-
-          {/* Right links */}
-          <MDBNavbarNav className='d-flex flex-row' right fullWidth={false}>
-            {/* Notification dropdown */}
-            <MDBNavbarItem>
-              <MDBDropdown>
-                <MDBDropdownToggle tag='a' className='hidden-arrow me-3 me-lg-0 nav-link' style={{ cursor: 'pointer' }}>
-                  <MDBIcon fas icon='bell' />
-                  <MDBBadge pill notification color='danger'>
-                    1
-                  </MDBBadge>
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem link>Some news</MDBDropdownItem>
-                  <MDBDropdownItem link>Another news</MDBDropdownItem>
-                  <MDBDropdownItem link>Something else</MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavbarItem>
-
-            {/* Icon dropdown */}
-            <MDBNavbarItem>
-              <MDBDropdown>
-                <MDBDropdownToggle tag='a' className='hidden-arrow me-3 me-lg-0 nav-link'>
-                  <MDBIcon flag='united-kingdom' className='m-0' />
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem link>
-                    <MDBIcon flag='united-kingdom' />
-                    English
-                    <MDBIcon fas icon='check' color='success' className='ms-2' />
-                  </MDBDropdownItem>
-                  <MDBDropdownItem>{/* <MDBDropdownDivider></MDBDropdownDivider> */}</MDBDropdownItem>
-                  <MDBDropdownItem link>
-                    <MDBIcon flag='poland' />
-                    Polski
-                  </MDBDropdownItem>
-                  <MDBDropdownItem link>
-                    <MDBIcon flag='china' />
-                    中文
-                  </MDBDropdownItem>
-                  <MDBDropdownItem link>
-                    <MDBIcon flag='japan' />
-                    日本語
-                  </MDBDropdownItem>
-                  <MDBDropdownItem link>
-                    <MDBIcon flag='germany' />
-                    Deutsch
-                  </MDBDropdownItem>
-                  <MDBDropdownItem link>
-                    <MDBIcon flag='spain' />
-                    Español
-                  </MDBDropdownItem>
-                  <MDBDropdownItem link>
-                    <MDBIcon flag='russia' />
-                    Русский
-                  </MDBDropdownItem>
-                  <MDBDropdownItem link>
-                    <MDBIcon flag='portugal' />
-                    Português
-                  </MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavbarItem>
-
-            {/* Avatar */}
-            <MDBNavbarItem>
-              <MDBDropdown>
-                <MDBDropdownToggle tag='a' className='hidden-arrow d-flex align-items-center nav-link'>
-                  <img
-                    src='https://mdbootstrap.com/img/new/avatars/2.jpg'
-                    className='rounded-circle'
-                    height='22'
-                    alt='Avatar'
-                    loading='lazy'
-                  />
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem link>MyProfile</MDBDropdownItem>
-                  <MDBDropdownItem link>Settings</MDBDropdownItem>
-                  <MDBDropdownItem link>Logout</MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavbarItem>
-          </MDBNavbarNav>
-        </MDBContainer>
-      </MDBNavbar>
-
-      {/* Heading */}
-      <div className='p-5 bg-light mb-4'>
-        <h1>Dashboard</h1>
-        {/* Breadcrumb */}
-        <MDBContainer fluid>
-          <MDBBreadcrumb bold>
-            <MDBBreadcrumbItem>
-              <a href='' className='text-reset'>
-                Home
-              </a>
-            </MDBBreadcrumbItem>
-            <MDBBreadcrumbItem>
-              <a href='' className='text-reset'>
-                Analytics
-              </a>
-            </MDBBreadcrumbItem>
-            <MDBBreadcrumbItem>
-              <a href='' className='text-reset'>
-                <u>Dashboard</u>
-              </a>
-            </MDBBreadcrumbItem>
-          </MDBBreadcrumb>
-        </MDBContainer>
-      </div>
-      </header>
-            </>
+          <>
+    <Navbar  className={styles['navbar-top']}>
+      
+        <Navbar.Brand href="#home"  style={{marginRight:'100px !important'}}>E-shop</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            Signed in as: <a href="#login">Mark Otto</a>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      
+    </Navbar>
+    <Navbar collapseOnSelect expand="lg" className={styles['navbar-top-two']}  >
+      
+        <Navbar.Brand href="#home" className={styles['navbar-top-two-banner']}><img src={'./image/home/logo-1.png'} alt="Logo" style={{height: '60px'}}/></Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav" className={styles['navbar-hide-one']} >
+          <Nav className="me-auto justify-content-md-center" style={{width:'100%'}}>
            
+              <Nav.Link href="#features" className="text-left">Features</Nav.Link>
+              <Nav.Link href="#pricing" className="text-left">Pricing</Nav.Link>
+              <NavDropdown title="Dropdown" id="collapsible-nav-dropdown" className="text-left">
+                <NavDropdown.Item href="#action/3.1" >Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+         
+          </Nav>
+          <Nav className={styles['div-cart']}>
+          <Navbar.Brand ><Button className={styles['button-cart']}  onClick={handleShow}><CartFill size={24}  /></Button><Button className={styles['button-count-cart']}>0</Button></Navbar.Brand>
+          </Nav>
+        </Navbar.Collapse>
+      
+    </Navbar>
+    <Offcanvas show={show} onHide={handleClose} placement="end">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          Some text as placeholder. In real life you can have the elements you
+          have chosen. Like, text, images, lists, etc.
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
         );
     
 }
 
-export default MainHome;
+export default NavbarMain;

@@ -1,13 +1,36 @@
-import React, { Component,useContext } from 'react';
+import React, { Component,useContext,useEffect } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button,Stack } from 'react-bootstrap';
 import {Link ,useNavigate} from 'react-router-dom';
 import '../../vendor/css/layout/navbarMain.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import {AppContext} from '../../AppContext'
 // ใช้ Redux hooks
 import { useSelector, useDispatch } from 'react-redux';
 import { setUsername } from '../../actions';
 const NavbarMain  = (props) => { 
+    useEffect(() => {
+        // สร้างลิสต์ของไฟล์ CSS ที่ต้องการโหลด
+        const cssFiles = [
+            '/css/bootstrap.min.css', 
+         
+        ];
+    
+        // สร้างและเพิ่ม <link> สำหรับแต่ละไฟล์ CSS
+        const links = cssFiles.map(file => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = file;
+            document.head.appendChild(link);
+            return link;
+        });
+    
+        // ลบ <link> เมื่อลองโหนดถูก Unmount
+        return () => {
+            links.forEach(link => {
+                document.head.removeChild(link);
+            });
+        };
+    }, []);
     //Context Api
     // const { username,handleUserUpdate } = useContext(AppContext);
     //Redux

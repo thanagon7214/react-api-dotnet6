@@ -15,6 +15,7 @@ import './vendor/css/layout/navbarMain.css';
 
 //front store
 import NavbarMainHome from './layout/home/navbarMain';
+import SlideShowMain from './layout/home/slideShowMain';
 import { AppProvider,AppContext } from './AppContext'; // นำเข้า AppProvider
 
 // ใช้ Redux hooks
@@ -80,11 +81,13 @@ function App() {
     }
     {checkFrontStore?<>
       <NavbarMainHome />
-      <div className="main">
+      {/* <div className="main"> */}
       <Routes>
       <Route path="/MainHome" element={<MainHome  />} />
       </Routes>
-      </div>
+      
+      {/* </div> */}
+      {/* <SlideShowMain/> */}
     </>:<></>
 
     }

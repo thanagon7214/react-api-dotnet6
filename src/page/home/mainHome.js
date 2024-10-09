@@ -1,4 +1,5 @@
 import React, { Component,useEffect } from 'react';
+import SlideShowMain  from '../../layout/home/slideShowMain.js'
 
 import {
         MDBBreadcrumb,
@@ -22,18 +23,7 @@ import {
 
 
 const MainHome  = (props) => {
-useEffect(() => {
-                // โหลด CSS สำหรับ MDBReact เฉพาะคอมโพเนนต์นี้
-                const link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = '/css/mdb.min.css'; // path ของไฟล์ mdb.min.css ที่คุณต้องการโหลด 
-                document.head.appendChild(link);
-            
-                // ลบ CSS ออกเมื่อคอมโพเนนต์นี้ถูก Unmount
-                return () => {
-                  document.head.removeChild(link);
-                };
-}, []);
+
  
 
    
@@ -41,7 +31,8 @@ useEffect(() => {
     
         return (
             <>
-                    hello 
+                     
+                    <SlideShowMain/>
             </>
         );
     
