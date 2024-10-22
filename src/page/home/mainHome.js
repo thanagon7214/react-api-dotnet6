@@ -1,5 +1,7 @@
 import React, { Component,useEffect } from 'react';
 import SlideShowMain  from '../../layout/home/slideShowMain.js'
+import ListProduct from '../../layout/home/listProduct.js'
+import Styles from '../../vendor/css/home/mainHome.js'
 
 import {
         MDBBreadcrumb,
@@ -31,8 +33,14 @@ const MainHome  = (props) => {
     
         return (
             <>
-                     
-                    <SlideShowMain/>
+                <div style={{padding:'10px'}}>
+                        <div style={{margin:'10px'}}>
+                                <SlideShowMain/>
+                        </div>
+                        <div style={{margin:'10px',paddingLeft:'100px',paddingRight:'100px'}}>
+                                <ListProduct/>
+                        </div>
+                </div>
             </>
         );
     

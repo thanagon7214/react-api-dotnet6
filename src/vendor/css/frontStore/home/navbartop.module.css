@@ -4,6 +4,7 @@
     background-color: #9FC749 !important;
     position: sticky !important;
     top: 0px !important;
+    z-index: 100 !important;
 }
 .navbar-top-two{
     padding:'10px' !important;
@@ -12,6 +13,7 @@
     background-color:#F7F9FB !important;
     position: sticky !important;
     top: 60px !important;
+    z-index: 100 !important;
 }
 .button-cart{
     background-color:#9FC749 !important;
