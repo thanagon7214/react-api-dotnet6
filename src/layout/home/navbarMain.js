@@ -2,10 +2,12 @@
 import React, { Component,useEffect,useState } from 'react';
 
 
-import { Navbar, Container,Button ,Form ,Nav ,NavDropdown,Offcanvas  } from 'react-bootstrap';
-import { CartFill } from 'react-bootstrap-icons';
+import { Navbar, Container,Button ,Form ,Nav ,NavDropdown,Offcanvas,Col,Row,Card,ListGroup,Image,InputGroup,FormControl } from 'react-bootstrap';
+import { CartFill,X } from 'react-bootstrap-icons';
 import Stack from 'react-bootstrap/Stack';
 import styles from '../../vendor/css/frontStore/home/navbartop.module.css'; 
+import {  useSelector,useDispatch } from 'react-redux';
+import { editCart,removeFromCart} from '../../actions';
 const NavbarMain  = (props) => {
   useEffect(() => {
     // สร้างลิสต์ของไฟล์ CSS ที่ต้องการโหลด
@@ -35,8 +37,34 @@ const [show, setShow] = useState(false);
 
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
+const dispatch = useDispatch();
+const cart = useSelector((state) => state.cart); 
+const min = 1;
+const max = 100;
+const handleIncrement = (id) => {
+  const existingItem = cart.find((item) => item.id === id);
 
- 
+  if (existingItem) {
+      console.log("Item already in cart");
+      // ที่นี่สามารถเขียนโค้ดเพื่อเพิ่ม count ของสินค้าที่มีอยู่แล้วได้
+      dispatch(editCart({ ...existingItem, count:  Math.min(existingItem.count + 1 ,max)}));
+  }
+
+}
+const handleDecrement = (id) => {
+  const existingItem = cart.find((item) => item.id === id);
+
+  if (existingItem) {
+      console.log("Item already in cart");
+      // ที่นี่สามารถเขียนโค้ดเพื่อเพิ่ม count ของสินค้าที่มีอยู่แล้วได้
+      dispatch(editCart({ ...existingItem, count: Math.max(existingItem.count - 1 ,min)}));
+  }
+  
+}
+
+const removeFormCart =(id) =>{
+  dispatch(removeFromCart(id));
+}
    
    
     
@@ -76,19 +104,72 @@ const handleShow = () => setShow(true);
          
           </Nav>
           <Nav className={styles['div-cart']}>
-          <Navbar.Brand ><Button className={styles['button-cart']}  onClick={handleShow}><CartFill size={24}  /></Button><Button className={styles['button-count-cart']}>0</Button></Navbar.Brand>
+          <Navbar.Brand ><Button className={styles['button-cart']}  onClick={handleShow}><CartFill size={24}  /></Button><Button className={styles['button-count-cart']}>{cart?<>{cart.reduce((sum, cart) => sum + cart.count, 0)}</>:<>0</>}</Button></Navbar.Brand>
           </Nav>
         </Navbar.Collapse>
       
     </Navbar>
-    <Offcanvas show={show} onHide={handleClose} placement="end">
+    <Offcanvas show={show} onHide={handleClose} placement="end" className={styles['customOffcanvas']}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title>Shopping Cart</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
+          {cart.length>0?<div>
+            {/* {cart.map((item) => (
+           
+            <ListGroup className={`my-2 d-flex flex-row ${styles.customListgroup}`} horizontal="sm">
+            <ListGroup.Item> <Image  className={`${styles.imageRatio}`}  src={`/upload/image/product/${item.image}`} /></ListGroup.Item>
+            <ListGroup.Item style={{borderTopWidth: "1px"}}>{item.name}</ListGroup.Item>
+            <ListGroup.Item style={{borderTopWidth: "1px"}}>{item.price} </ListGroup.Item>
+            <ListGroup.Item style={{borderTopWidth: "1px",borderRadius:"0.375rem"}}>{item.count}</ListGroup.Item>
+          </ListGroup>
+        ))} */}
+        {cart.map((item) => (
+        <Stack style={{borderTop: "1px solid #e2e8f0"}} direction="horizontal" gap={5}>
+          <div className={`${styles.listCartWidthCustom}`}><Image  className={`${styles.imageRatio}`}  src={`/upload/image/product/${item.image}`} /></div>
+          <div className={`${styles.listCartWidthCustom}`}>
+            <Stack gap={2}>
+              <div>  {item.name}</div>
+              <InputGroup style={{ width: "150px" }} className="ms-auto">
+                <Button variant="outline-secondary" onClick={()=>handleDecrement(item.id)}>-</Button>
+                <FormControl
+                    type="number"
+                    value={item.count}
+                    min={min}
+                    max={max}
+                    step="1"
+                    onChange={(e) => {
+                        const value = Math.max(min, Math.min(max, Number(e.target.value)));
+                        dispatch(editCart({ ...item, count: e.target.value }));
+                        // setQuantity(value);
+                    }}
+                    className="text-center"
+                />
+                <Button variant="outline-secondary" onClick={()=>handleIncrement(item.id)}>+</Button>
+              </InputGroup>
+            </Stack>
+          </div>
+          <div className={`${styles.listCartWidthCustom}`}></div>
+          <div className={`${styles.listCartWidthCustom}`}>
+      
+          </div>
+          <div className="p-2 ms-auto">
+            <Stack gap={2} ClassName="">
+              <Button className="btn btn-light ms-auto rounded-circle"  onClick={()=>removeFormCart(item.id)}><X size={24}  /></Button>
+              <div className="mt-auto ms-auto">{item.price} ฿</div>
+            </Stack>
+          </div>
+        </Stack>
+        ))}
+        
+          </div>:<div>no</div>}
+   
+          
+   
         </Offcanvas.Body>
+        <div className="p-10 d-flex justify-content-center">
+        <Button variant="outline-secondary" >VIEW CART</Button>
+        </div>
       </Offcanvas>
     </>
         );

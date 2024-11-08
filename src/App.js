@@ -80,7 +80,7 @@ function App() {
       </>:<></>
     }
     {checkFrontStore?<>
-      <NavbarMainHome />
+      {/* <NavbarMainHome /> */}
       {/* <div className="main"> */}
       <Routes>
       <Route path="/MainHome" element={<MainHome  />} />

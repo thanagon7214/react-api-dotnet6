@@ -49,3 +49,23 @@
     display: flex;
     flex-direction: column-reverse;
   } */
+  .customOffcanvas {
+    width: 700px !important; /* กำหนดความกว้างตามต้องการ */
+  }
+  
+  @media (max-width: 768px) {
+    .customOffcanvas {
+      width: 100%; /* ปรับความกว้างให้เต็มหน้าจอเมื่อหน้าจอเล็ก */
+    }
+  }
+
+.imageRatio{
+    /* width: auto;
+    max-height: 500px; */
+    /* max-height: 500px; */
+    max-width: 100px;
+    
+}
+.listCartWidthCustom{
+    width:auto
+}

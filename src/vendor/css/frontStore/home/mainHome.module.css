@@ -1,0 +1,9 @@
+.margin-distance-border{
+    margin:10px;
+    padding-left:15%;
+    padding-right:15%;
+}
+
+@media (max-width: 991px) {
+
+}
